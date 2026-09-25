@@ -14,7 +14,10 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
+# The kernel is 4.9 and will stay 4.9: the framework compatibility matrix of this
+# tree only has kernel requirements from 5.4.61 for FCM level 5, so enforcing them
+# fails check_vintf at build time. The check only gates builds and OTA packages.
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
